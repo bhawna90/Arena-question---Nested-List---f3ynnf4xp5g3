@@ -154,8 +154,50 @@ const states = [
   },
 ];
 
-function App() {
-  return <div id="main"></div>;
+class App extends React.Component {
+  constructor(){
+    super()
+    this.state={
+      selectedState: "",
+      cities: [],
+      towns: []
+    }
+  }
+  render() {
+    return (
+      <div id="main">
+        {states.map((state,index) => {
+          return <div onClick={()=>{
+            if(state.name === this.state.selectedState){
+              this.setState({cities: [], selectedState: ""})
+            }
+            else{
+
+              this.setState({selectedState: state.name})
+              const selectedStateObj =  states[index]
+              console.log(selectedStateObj);
+              this.setState({cities: selectedStateObj.cities})
+              // const stateArr = states.filter(st=>{
+              //   if(state.name === st.name){
+              //     return st
+              //   }
+              // })
+              // console.log(stateArr[0].cities);
+              // this.setState({cities: stateArr[0].cities})
+            }
+          }}>{state.name}
+            <ul></ul>
+          </div>;
+        })}
+        <br></br>
+        <div>{this.state.cities.map(city=>
+            <div onClick={()=>{
+
+            }}>{city.name}</div>
+          )}</div>
+      </div>
+    );
+  }
 }
 
 export default App;
